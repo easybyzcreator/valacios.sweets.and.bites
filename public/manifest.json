@@ -1,0 +1,25 @@
+{
+  "id": "/",
+  "name": "Valacio’s Sweets & Bites",
+  "short_name": "Valacio's",
+  "description": "Pão de queijo artesanal de verdade, tradição mineira e sabor inigualável.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f59e0b",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/8L8chyDJ/patitour-2026-10-21-T170043-322.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.ibb.co/8L8chyDJ/patitour-2026-10-21-T170043-322.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
