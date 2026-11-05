@@ -1,0 +1,7 @@
+{
+  "name": "Valacio’s Sweets & Bites",
+  "description": "Valacio’s Sweets & Bites - Pão de queijo artesanal de verdade, tradição mineira e sabor inigualável.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Amithen';
+  src: url('/fonts/amithen.woff2') format('woff2'),
+       url('/fonts/amithen.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .font-script {
+    font-family: 'Amithen', 'Yellowtail', 'Caveat', cursive;
+  }
+  .font-amithen {
+    font-family: 'Amithen', 'Yellowtail', 'Caveat', cursive;
+  }
+  .font-brush {
+    font-family: 'Amithen', 'Caveat', 'Pacifico', cursive;
+  }
+  .font-brand {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  }
+  .font-serif-vintage {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes gentleHeartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.16);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.10);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+.animate-heart-pulse {
+  animation: gentleHeartPulse 2.4s ease-in-out infinite;
+  transform-origin: 40px 41px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1ebd9;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4a359;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b5833a;
+}
+
