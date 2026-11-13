@@ -1,30 +1,14 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, Store, MapPin } from 'lucide-react';
+import { X, CheckCircle2, Store, MapPin, ShoppingBag, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { saveLead } from '../utils/leadsStore';
+import { formatUSPhone } from '../utils/phoneMask';
 
 interface InfoModalsProps {
   activeModal: 'parceiro' | 'onde-encontrar' | null;
   onClose: () => void;
   onSwitchModal?: (modal: 'parceiro' | 'onde-encontrar') => void;
 }
-
-/**
- * Formats input into standard US phone format: (###) ###-####
- */
-const formatUSPhone = (value: string): string => {
-  let digits = value.replace(/\D/g, '');
-  // If user pasted 1-###-###-####, remove leading US country code 1
-  if (digits.length > 10 && digits.startsWith('1')) {
-    digits = digits.slice(1);
-  }
-  digits = digits.slice(0, 10);
-
-  if (!digits) return '';
-  if (digits.length <= 3) return `(${digits}`;
-  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
-};
 
 export const InfoModals: React.FC<InfoModalsProps> = ({ activeModal, onClose, onSwitchModal }) => {
   const { t } = useLanguage();
@@ -142,12 +126,25 @@ export const InfoModals: React.FC<InfoModalsProps> = ({ activeModal, onClose, on
                         />
                       </div>
                     </div>
-                    <button
-                      type="submit"
-                      className="w-full py-3.5 bg-[#de8a27] hover:bg-[#c9781b] text-white font-brand font-black text-xs sm:text-sm uppercase tracking-wider rounded-lg transition shadow-md cursor-pointer hover:scale-[1.01] active:scale-95"
-                    >
-                      {t.modals.partnerBtn}
-                    </button>
+                    <div className="space-y-2.5 pt-1">
+                      <button
+                        type="submit"
+                        className="w-full py-3.5 bg-[#de8a27] hover:bg-[#c9781b] text-white font-brand font-black text-xs sm:text-sm uppercase tracking-wider rounded-lg transition shadow-md cursor-pointer hover:scale-[1.01] active:scale-95"
+                      >
+                        {t.modals.partnerBtn}
+                      </button>
+
+                      <a
+                        href="https://leavalacio.vercel.app/order"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-3.5 px-4 bg-[#412213] hover:bg-[#2e170d] text-white font-brand font-black text-xs sm:text-sm uppercase tracking-wider rounded-lg transition shadow-md cursor-pointer hover:scale-[1.01] active:scale-95 flex items-center justify-center gap-2 border border-[#5a311d]"
+                      >
+                        <ShoppingBag className="w-4 h-4 text-[#de8a27] flex-shrink-0" />
+                        <span>{t.modals.buyForBusinessBtn}</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-amber-200/80 flex-shrink-0" />
+                      </a>
+                    </div>
                   </form>
                 </div>
               )}

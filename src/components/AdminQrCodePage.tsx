@@ -139,7 +139,8 @@ export const AdminQrCodePage: React.FC<AdminQrCodePageProps> = ({ onBackToHome }
   };
 
   const handleCopyLeadInfo = (lead: LeadItem) => {
-    const text = `Tipo: ${lead.type === 'parceiro' ? 'Seja um Parceiro' : 'Mensagem do Site'}\nNome: ${lead.name}\nContato: ${lead.contact || lead.phone || lead.email}\nCidade/Estado: ${lead.cityState || 'N/A'}\nMensagem: ${lead.message || 'N/A'}\nData: ${new Date(lead.createdAt).toLocaleString('pt-BR')}`;
+    const contactParts = [lead.email, lead.phone].filter(Boolean).join(' | ') || lead.contact || 'N/A';
+    const text = `Tipo: ${lead.type === 'parceiro' ? 'Seja um Parceiro' : 'Mensagem do Site'}\nNome: ${lead.name}\nContato: ${contactParts}\nCidade/Estado: ${lead.cityState || 'N/A'}\nMensagem: ${lead.message || 'N/A'}\nData: ${new Date(lead.createdAt).toLocaleString('pt-BR')}`;
     navigator.clipboard.writeText(text);
     setCopiedLeadId(lead.id);
     setTimeout(() => setCopiedLeadId(null), 2000);
@@ -177,9 +178,11 @@ export const AdminQrCodePage: React.FC<AdminQrCodePageProps> = ({ onBackToHome }
       const q = searchQuery.toLowerCase();
       const matchName = lead.name.toLowerCase().includes(q);
       const matchContact = (lead.contact || '').toLowerCase().includes(q);
+      const matchEmail = (lead.email || '').toLowerCase().includes(q);
+      const matchPhone = (lead.phone || '').toLowerCase().includes(q);
       const matchCity = (lead.cityState || '').toLowerCase().includes(q);
       const matchMsg = (lead.message || '').toLowerCase().includes(q);
-      return matchName || matchContact || matchCity || matchMsg;
+      return matchName || matchContact || matchEmail || matchPhone || matchCity || matchMsg;
     }
     return true;
   });
@@ -465,20 +468,30 @@ export const AdminQrCodePage: React.FC<AdminQrCodePageProps> = ({ onBackToHome }
 
                       <div>
                         <span className="text-stone-500 block text-[10px] uppercase font-bold tracking-wider">
-                          WhatsApp / Contato
+                          Contato / Telefone
                         </span>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-amber-300 font-semibold">{lead.contact || lead.phone || lead.email || 'N/A'}</span>
+                        <div className="flex flex-col gap-0.5 mt-0.5">
+                          {(lead.email || (!lead.phone && lead.contact)) && (
+                            <span className="text-amber-300 font-semibold break-all">
+                              {lead.email || lead.contact}
+                            </span>
+                          )}
                           {lead.phone && (
-                            <a
-                              href={`https://wa.me/${lead.phone.replace(/\D/g, '')}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-emerald-400 hover:underline inline-flex items-center gap-0.5 text-[11px]"
-                              title="Abrir no WhatsApp"
-                            >
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
+                            <div className="flex items-center gap-2">
+                              <span className="text-amber-200 font-semibold">{lead.phone}</span>
+                              <a
+                                href={`https://wa.me/${lead.phone.replace(/\D/g, '')}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-emerald-400 hover:underline inline-flex items-center gap-0.5 text-[11px]"
+                                title="Abrir no WhatsApp"
+                              >
+                                <ExternalLink className="w-3 h-3" />
+                              </a>
+                            </div>
+                          )}
+                          {!lead.email && !lead.phone && !lead.contact && (
+                            <span className="text-stone-400">N/A</span>
                           )}
                         </div>
                       </div>
@@ -753,7 +766,15 @@ export const AdminQrCodePage: React.FC<AdminQrCodePageProps> = ({ onBackToHome }
 
                 {deleteConfirmTarget !== 'all' && (
                   <div className="mt-3 p-3 rounded-lg bg-stone-950/80 border border-stone-800 text-xs text-stone-300 space-y-1">
-                    <p><span className="text-stone-500 font-bold uppercase text-[10px]">Contato:</span> {deleteConfirmTarget.contact || deleteConfirmTarget.phone || deleteConfirmTarget.email}</p>
+                    {deleteConfirmTarget.email && (
+                      <p><span className="text-stone-500 font-bold uppercase text-[10px]">E-mail:</span> {deleteConfirmTarget.email}</p>
+                    )}
+                    {deleteConfirmTarget.phone && (
+                      <p><span className="text-stone-500 font-bold uppercase text-[10px]">Telefone:</span> {deleteConfirmTarget.phone}</p>
+                    )}
+                    {!deleteConfirmTarget.email && !deleteConfirmTarget.phone && deleteConfirmTarget.contact && (
+                      <p><span className="text-stone-500 font-bold uppercase text-[10px]">Contato:</span> {deleteConfirmTarget.contact}</p>
+                    )}
                     {deleteConfirmTarget.cityState && (
                       <p><span className="text-stone-500 font-bold uppercase text-[10px]">Cidade:</span> {deleteConfirmTarget.cityState}</p>
                     )}

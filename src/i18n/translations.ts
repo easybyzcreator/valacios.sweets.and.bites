@@ -55,6 +55,7 @@ export interface TranslationDictionary {
     description: string;
     namePlaceholder: string;
     emailPlaceholder: string;
+    phonePlaceholder: string;
     msgPlaceholder: string;
     whatsappBtn: string;
     submitBtn?: string;
@@ -131,6 +132,7 @@ export interface TranslationDictionary {
     whatsappPlaceholder: string;
     cityStatePlaceholder: string;
     partnerBtn: string;
+    buyForBusinessBtn: string;
     partnerGreeting: string;
     successTitle: string;
     successMsg: string;
@@ -296,6 +298,7 @@ export const TRANSLATIONS: Record<Language, TranslationDictionary> = {
       description: "Want to guarantee our artisan cheese breads and waffles in your home freezer or offer high-quality specialty products in your grocery, café or market? We work directly with retail and wholesale orders. Reach out to become our partner!",
       namePlaceholder: "Your full name",
       emailPlaceholder: "Your email address",
+      phonePlaceholder: "Phone (###) ###-####",
       msgPlaceholder: "Add a message or inquiry",
       whatsappBtn: "Send Message",
       submitBtn: "SEND MESSAGE",
@@ -419,6 +422,7 @@ export const TRANSLATIONS: Record<Language, TranslationDictionary> = {
       whatsappPlaceholder: "(###) ###-####",
       cityStatePlaceholder: "City / State",
       partnerBtn: "BECOME A RESELLER PARTNER",
+      buyForBusinessBtn: "I WANT TO BUY FOR MY BUSINESS",
       partnerGreeting: "Hello! I am interested in becoming a Valacio's reseller/partner.",
       successTitle: "Inquiry Sent Successfully!",
       successMsg: "Our commercial representative will contact you via WhatsApp shortly.",
@@ -596,6 +600,7 @@ export const TRANSLATIONS: Record<Language, TranslationDictionary> = {
       description: "Quer garantir nossos pães de queijo e waffles artesanais no freezer de casa ou oferecer produtos de alta qualidade no seu empório, café ou mercado? Atendemos pedidos no varejo e no atacado. Fale com a gente para ser nosso parceiro!",
       namePlaceholder: "Seu nome completo",
       emailPlaceholder: "Seu melhor e-mail",
+      phonePlaceholder: "Telefone (###) ###-####",
       msgPlaceholder: "Deixe sua mensagem ou dúvida",
       whatsappBtn: "Enviar Mensagem",
       submitBtn: "ENVIAR MENSAGEM",
@@ -719,6 +724,7 @@ export const TRANSLATIONS: Record<Language, TranslationDictionary> = {
       whatsappPlaceholder: "(###) ###-####",
       cityStatePlaceholder: "Cidade / Estado",
       partnerBtn: "QUERO SER UM PARCEIRO REVENDEDOR",
+      buyForBusinessBtn: "QUERO COMPRAR PARA MEU NEGÓCIO",
       partnerGreeting: "Olá! Tenho interesse em ser um parceiro revendedor Valacio's.",
       successTitle: "Solicitação Recebida com Sucesso!",
       successMsg: "Sua solicitação foi salva no sistema com sucesso. Entraremos em contato em breve!",
@@ -896,6 +902,7 @@ export const TRANSLATIONS: Record<Language, TranslationDictionary> = {
       description: "¿Deseas garantizar nuestros panes de queso y waffles artesanales en el congelador de casa o comercializar delicias de primera en tu tienda, cafetería o supermercado? Atendemos pedidos mayoristas y minoristas. ¡Escríbenos para ser nuestro aliado!",
       namePlaceholder: "Nombre completo",
       emailPlaceholder: "Correo electrónico",
+      phonePlaceholder: "Teléfono (###) ###-####",
       msgPlaceholder: "Escribe tu mensaje o consulta",
       whatsappBtn: "Enviar Mensaje",
       submitBtn: "ENVIAR MENSAJE",
@@ -1019,6 +1026,7 @@ export const TRANSLATIONS: Record<Language, TranslationDictionary> = {
       whatsappPlaceholder: "(###) ###-####",
       cityStatePlaceholder: "Ciudad / Estado",
       partnerBtn: "QUIERO SER UN SOCIO REVENDEDOR",
+      buyForBusinessBtn: "QUIERO COMPRAR PARA MI NEGOCIO",
       partnerGreeting: "¡Hola! Tengo interés en ser un socio revendedor de Valacio's.",
       successTitle: "¡Solicitud Recibida con Éxito!",
       successMsg: "Tu solicitud ha sido guardada con éxito en el sistema. ¡Nos pondremos en contacto muy pronto!",

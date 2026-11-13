@@ -3,33 +3,36 @@ import { EnvelopeWithHeartDoodle, BrushStrokeUnderline } from './common/Doodles'
 import { CheckCircle2, Send } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { saveLead } from '../utils/leadsStore';
+import { formatUSPhone } from '../utils/phoneMask';
 
 export const ContatoSection: React.FC = () => {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
+    telefone: '',
     mensagem: '',
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.nome && !formData.email) return;
+    if (!formData.nome && !formData.email && !formData.telefone) return;
 
     setStatus('submitting');
     // Save contact message to store so it is accessible in #/admin
     saveLead({
       type: 'contato',
       name: formData.nome,
-      contact: formData.email,
+      contact: formData.email || formData.telefone,
       email: formData.email,
+      phone: formData.telefone,
       message: formData.mensagem,
     });
 
     setTimeout(() => {
       setStatus('success');
-      setFormData({ nome: '', email: '', mensagem: '' });
+      setFormData({ nome: '', email: '', telefone: '', mensagem: '' });
       setTimeout(() => setStatus('idle'), 6000);
     }, 400);
   };
@@ -112,21 +115,22 @@ export const ContatoSection: React.FC = () => {
           {/* Form */}
           <form onSubmit={handleSubmit} className="w-full space-y-4">
             
-            {/* Side-by-side inputs: Nome and Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              <div>
-                <label htmlFor="contato-nome" className="sr-only">{t.contato.namePlaceholder}</label>
-                <input
-                  id="contato-nome"
-                  type="text"
-                  required
-                  placeholder={t.contato.namePlaceholder}
-                  value={formData.nome}
-                  onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                  className="w-full px-4 py-3 bg-[#f2f4f5] rounded-none sm:rounded text-stone-900 text-xs sm:text-sm placeholder-stone-500 border border-transparent focus:border-[#de8a27] focus:bg-white focus:outline-none transition"
-                />
-              </div>
+            {/* Full Name input */}
+            <div>
+              <label htmlFor="contato-nome" className="sr-only">{t.contato.namePlaceholder}</label>
+              <input
+                id="contato-nome"
+                type="text"
+                required
+                placeholder={t.contato.namePlaceholder}
+                value={formData.nome}
+                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+                className="w-full px-4 py-3 bg-[#f2f4f5] rounded-none sm:rounded text-stone-900 text-xs sm:text-sm placeholder-stone-500 border border-transparent focus:border-[#de8a27] focus:bg-white focus:outline-none transition"
+              />
+            </div>
 
+            {/* Side-by-side inputs: Email and Phone */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label htmlFor="contato-email" className="sr-only">{t.contato.emailPlaceholder}</label>
                 <input
@@ -136,6 +140,21 @@ export const ContatoSection: React.FC = () => {
                   placeholder={t.contato.emailPlaceholder}
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-4 py-3 bg-[#f2f4f5] rounded-none sm:rounded text-stone-900 text-xs sm:text-sm placeholder-stone-500 border border-transparent focus:border-[#de8a27] focus:bg-white focus:outline-none transition"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="contato-telefone" className="sr-only">{t.contato.phonePlaceholder}</label>
+                <input
+                  id="contato-telefone"
+                  type="tel"
+                  required
+                  maxLength={14}
+                  inputMode="tel"
+                  placeholder={t.contato.phonePlaceholder}
+                  value={formData.telefone}
+                  onChange={(e) => setFormData({ ...formData, telefone: formatUSPhone(e.target.value) })}
                   className="w-full px-4 py-3 bg-[#f2f4f5] rounded-none sm:rounded text-stone-900 text-xs sm:text-sm placeholder-stone-500 border border-transparent focus:border-[#de8a27] focus:bg-white focus:outline-none transition"
                 />
               </div>
